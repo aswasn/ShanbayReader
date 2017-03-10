@@ -1,0 +1,42 @@
+{
+  "manifest_version": 2,
+  "name": "ShanbayReader",
+  "version": "0.1",
+  "description": "A chrome extension helps you read articles comfortably with Shanbay Dictionary.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "author": "Wang Ning",
+  "page_action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "default_title": "点我进入阅读模式"
+  },
+  "background": {
+    "scripts": [
+      "js/background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.theguardian.com/**"
+      ],
+      "js": [
+        "js/jquery-3.1.1.min.js"
+      ],
+      "run_at": "document_end"
+    }
+  ],
+  "permissions": [
+    "activeTab",
+    "*://www.theguardian.com/**",
+    "https://api.shanbay.com/**",
+    "http://media.shanbay.com/**"
+  ]
+}
