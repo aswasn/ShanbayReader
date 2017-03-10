@@ -1,0 +1,67 @@
+
+.sbr-title {
+    font-size: 4.5rem;
+    font-weight: bold;
+}
+
+.sbr-author {
+    margin: 0.5rem 0;
+    font-size: 1.5rem;
+    color: darkblue;
+}
+
+.sbr-standfirst {
+    font-size: 2rem;
+    color: dimgray;
+    font-style: italic;
+}
+
+.sbr-figure figcaption {
+    margin-top: 0.2rem;
+    font-size: 1.5rem;
+    color: gray;
+}
+
+.sbr-content {
+    font-size: 2.5rem;
+}
+
+@media screen and (max-width: 320px) {
+    .sbr-container {
+        margin: 1rem 1.5rem;
+    }
+
+    .sbr-figure {
+        margin: 1.5rem 0;
+    }
+}
+
+@media screen and (min-width: 321px) and (max-width: 768px) {
+    .sbr-container {
+        margin: 1rem 1.5rem;
+    }
+
+    .sbr-figure {
+        margin: 1.5rem 0;
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1280px) {
+    .sbr-container {
+        margin: 1rem 3rem;
+    }
+
+    .sbr-figure {
+        margin: 1.5rem 0;
+    }
+}
+
+@media screen and (min-width: 1281px) {
+    .sbr-container {
+        margin: 2rem 20rem;
+    }
+
+    .sbr-figure {
+        margin: 2rem 0;
+    }
+}

@@ -44,6 +44,9 @@ function enterMode(tab) {
     chrome.tabs.executeScript({
         file: "js/enter-reader.js"
     });
+    chrome.tabs.insertCSS({
+        file: "css/enter-reader.css"
+    });
 }
 
 function exitMode(tab) {
