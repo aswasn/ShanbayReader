@@ -1,3 +1,16 @@
+html {
+    overflow-y: hidden !important;
+}
+
+body {
+    background-color: #F1E5C9 !important;
+
+}
+
+.sbr-page {
+    word-wrap: break-word;
+    padding-bottom: 4rem;
+}
 
 .sbr-title {
     font-size: 4.5rem;
@@ -23,12 +36,43 @@
 }
 
 .sbr-content {
-    font-size: 2.5rem;
+    font-size: 2.6rem;
 }
 
-@media screen and (max-width: 320px) {
+.sbr-pagination {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: black;
+    opacity: 0.6;
+    box-shadow: -2px 0 4px;
+}
+
+.sbr-pagination select {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.sbr-pagination * {
+    font-size: 1.5rem;
+    color: white;
+    font-weight: bold;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei";
+}
+
+@media screen and (max-width: 767px) {
     .sbr-container {
-        margin: 1rem 1.5rem;
+        margin: 0 1.5rem;
+    }
+
+    .sbr-pagination select {
+        margin: 0 5rem;
     }
 
     .sbr-figure {
@@ -36,32 +80,41 @@
     }
 }
 
-@media screen and (min-width: 321px) and (max-width: 768px) {
+@media screen and (min-width: 768px) and (max-width: 1280px) {
     .sbr-container {
-        margin: 1rem 1.5rem;
+        margin: 0 3rem;
+    }
+
+    .sbr-pagination select {
+        margin: 0 10rem;
     }
 
     .sbr-figure {
         margin: 1.5rem 0;
-    }
-}
-
-@media screen and (min-width: 769px) and (max-width: 1280px) {
-    .sbr-container {
-        margin: 1rem 3rem;
-    }
-
-    .sbr-figure {
-        margin: 1.5rem 0;
+        max-width: 75%;
     }
 }
 
 @media screen and (min-width: 1281px) {
     .sbr-container {
-        margin: 2rem 20rem;
+        margin: 0 20rem;
+    }
+
+    .sbr-title {
+        font-size: 3.5rem;
+    }
+
+    .sbr-pagination select {
+        margin: 0 15rem;
     }
 
     .sbr-figure {
-        margin: 2rem 0;
+        margin: 1.8rem 0;
+        max-width: 75%;
+        word-wrap: break-word;
+    }
+
+    .sbr-pagination {
+        height: 4rem;
     }
 }
