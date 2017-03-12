@@ -2,12 +2,7 @@
  * Created by aswasn on 2017/3/10.
  */
 
-
-// 生成新容器
-var $container = $("<div class='sbr-container' id='sbr-container'></div>");
-var $header = $("<div class='sbr-header'></div>");
-var $page = $("<div class='sbr-page'></div>");
-// 获取原页面资料
+// -----获取原页面资料-----
 var title = $("#article .content__headline").text();
 var standfirst = $("#article .content__standfirst").text();
 var authorName = $("#article .byline span[itemprop='name']").text();
@@ -15,15 +10,20 @@ var picture = $("#article figure picture").clone(false, false);
 var figcaption = $("#article figure figcaption").text();
 var content = $("#article .content__article-body p,#article .content__article-body ul").clone(false, false);
 
-// 清空旧页面内容
+// -----清空旧页面内容-----
 $("body").empty();
 
-// 给页面加上容器
-$("body").append($container);
+// -----生成新容器-----
+var $container = $("<div class='sbr-container' id='sbr-container'></div>");
+var $header = $("<div class='sbr-header'></div>");
+var $page = $("<div class='sbr-page'></div>");
 
-// 给容器加上资料
+// -----给页面加上容器-----
+$("body").append($container);
 $container.append($header);
 $container.append($page);
+
+// -----给容器加上资料-----
 $header.append($("<h1 class='sbr-title'>" + title + "</h1>"));
 $header.append($("<p class='sbr-author'>" + authorName + "</p>"));
 
@@ -137,12 +137,14 @@ function lookUpWord(ev) {
         })
     }
 }
-function appendDictWindow(selection, word, data, ev) {
+function appendDictWindow(selection, str, data, ev) {
+    var word = str;
     var def = "无释义。";
     var audioSrc = "";
     var detailHref = "https://www.shanbay.com/";
     var isEmpty = $.isEmptyObject(data);
     if (!isEmpty) {
+        word = data.content;
         def = data.definition;
         audioSrc = data.audio.replace(/http:/, "https:");
         detailHref = "https://www.shanbay.com/bdc/vocabulary/" + data.id;
