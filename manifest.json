@@ -33,10 +33,12 @@
       "run_at": "document_end"
     }
   ],
+  "web_accessible_resources": [
+    "fonts/*"
+  ],
   "permissions": [
     "activeTab",
     "*://www.theguardian.com/**",
-    "https://api.shanbay.com/**",
-    "http://media.shanbay.com/**"
+    "https://api.shanbay.com/**"
   ]
 }

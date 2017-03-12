@@ -45,6 +45,9 @@ function enterMode(tab) {
         file: "js/enter-reader.js"
     });
     chrome.tabs.insertCSS({
+        file: "css/font-awesome.min.css"
+    });
+    chrome.tabs.insertCSS({
         file: "css/enter-reader.css"
     });
 }

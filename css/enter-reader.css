@@ -7,6 +7,10 @@ body {
 
 }
 
+.sbr-container {
+    position: relative;
+}
+
 .sbr-page {
     word-wrap: break-word;
     padding-bottom: 4rem;
@@ -63,7 +67,42 @@ body {
     font-size: 1.5rem;
     color: white;
     font-weight: bold;
-    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei";
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", serif;
+}
+
+.sbr-dict-pop .line1 .word {
+    display: inline;
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    margin-right: 5px;
+}
+
+.sbr-dict-pop .line1 .detail {
+    color: lightblue;
+    float: right;
+}
+
+.sbr-dict-pop .line1 .audio-btn {
+    color: lightgray;
+    cursor: pointer;
+    margin-right: 15px;
+}
+
+.sbr-dict-pop .line1 .audio-btn:hover {
+    color: white;
+}
+
+.sbr-dict-pop .line2 {
+    font-size: 1.5rem;
+    color: lightgray;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", serif;
+    max-height: 1000px;
+
+}
+
+.sbr-dict-pop {
+    overflow-y: auto;
 }
 
 @media screen and (max-width: 767px) {

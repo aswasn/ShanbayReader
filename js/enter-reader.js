@@ -38,7 +38,13 @@ content.find($("a")).each(function (index, element) {
     var text = $(this).text();
     $(this).replaceWith($("<span>" + text + "</span>"));
 });
-
+// 加上fontawesome
+var fa = document.createElement('style');
+fa.type = 'text/css';
+fa.textContent = '@font-face { font-family: FontAwesome; src: url("'
+    + chrome.extension.getURL('fonts/fontawesome-webfont.woff')
+    + '"); }';
+document.head.appendChild(fa);
 
 // 设置根元素字体大小和分页
 var pageAll = 1;
@@ -59,11 +65,11 @@ function goPage(pageNum) {
 window.addEventListener("resize", (function () {
     function c() {
         // 设置根元素字体大小
-        var d = document.documentElement;
         var clientWidth = d.clientWidth || 750;
         d.style.fontSize = (10 * (clientWidth / 750)) > 10 ? 10 + 'px' : (10 * (clientWidth / 750)) + 'px';
 
         // 分页
+        offset = d.clientWidth >= 1025 ? 135 : 100;
         $(".sbr-pagination").remove();
         $container.append("<div class='sbr-pagination'><a id='sbr-prev-btn' href='javascript:;'>上一页</a><select id='sbr-page-sel'></select><a id='sbr-next-btn' href='javascript:;'>下一页</a></div>");
 
@@ -72,8 +78,6 @@ window.addEventListener("resize", (function () {
         var origin = scrollHeight / (clientHeight - offset);
         var originCeil = Math.ceil(scrollHeight / (clientHeight - offset));
         var originFloor = Math.floor(scrollHeight / (clientHeight - offset));
-        console.log((origin - originFloor) * (clientHeight - offset));
-        console.log($(".sbr-pagination").height() + parseInt($page.css("padding-bottom")));
 
         pageAll = ((origin - originFloor) * (clientHeight - offset) < (offset + parseInt($page.css("padding-bottom")))) ? originFloor : originCeil;
         pageNow = 1;
@@ -114,17 +118,67 @@ window.addEventListener("resize", (function () {
 })(), false);
 
 // 单词查询功能
-$container.on("dblclick", function (e) {
-    var word = window.getSelection().toString();
-    if (!!word && word.length > 0 && word.match(/[A-Za-z0-9 ]+/)) {
+$container.on("click", function () {
+    $(".sbr-dict-pop").remove();
+});
+$container.on("dblclick", function (ev) {
+    lookUpWord(ev)
+});
+function lookUpWord(ev) {
+    var selection = window.getSelection();
+    var word = selection.toString();
+    if (!!word && word.length > 0 && word.match(/[A-Za-z0-9]+/)) {
         $.ajax({
             type: "get",
             url: "https://api.shanbay.com/bdc/search/?word=" + word,
             success: function (data) {
-                console.log(data)
+                appendDictWindow(selection, word, data.data, ev);
             }
         })
     }
-});
+}
+function appendDictWindow(selection, word, data, ev) {
+    var def = "无释义。";
+    var audioSrc = "";
+    var detailHref = "https://www.shanbay.com/";
+    var isEmpty = $.isEmptyObject(data);
+    if (!isEmpty) {
+        def = data.definition;
+        audioSrc = data.audio.replace(/http:/, "https:");
+        detailHref = "https://www.shanbay.com/bdc/vocabulary/" + data.id;
+    }
+    $(".sbr-dict-pop").remove();
+    // 计算显示位置
+    var popWidth = d.clientWidth >= 320 ? 260 : d.clientWidth - 20;
+    var popHeight = 120;
+    var posX = ev.clientX;
+    var posY = ev.clientY + 15;
+    if (posX + popWidth > d.clientWidth) {
+        posX = def.length > 50 ? (d.clientWidth - popWidth) : (d.clientWidth - popWidth + 40);
+    }
+    if (posY + popHeight > d.clientHeight) {
+        posY = def.length > 30 ? (posY - popHeight - 30) : (posY - popHeight + 10);
+    }
 
+
+    $("body").append($("<div class='sbr-dict-pop'>" +
+        "<section class='line1'><h3 class='word'>" + word + "</h3>" + (isEmpty ? "" : "<i class='audio-btn fa fa-volume-up'><audio id='sbr-audio'><source src='" + audioSrc + "'></audio></i><a target='_blank' class='detail' href='" + detailHref + "'>详细</a>") + "</section> " +
+        "<section class='line2'>" + def + "</section> " +
+        "</div>"));
+
+    $(".audio-btn").on("click", function () {
+        document.getElementById("sbr-audio").play();
+    });
+    $(".sbr-dict-pop").css({
+        "position": "fixed",
+        "top": posY,
+        "left": posX,
+        "max-width": popWidth,
+        "max-height": popHeight,
+        "background-color": "rgba(0,0,0,0.8)",
+        "box-shadow": "3px 3px 3px",
+        "border-radius": "6px",
+        "padding": "1rem"
+    });
+}
 
