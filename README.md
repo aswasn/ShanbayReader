@@ -1,3 +1,3 @@
 # ShanbayReader
 
-A chrome extension helps you read articles comfortably with Shanbay Dictionary.
+A chrome extension for Shanbay's intern interview.
